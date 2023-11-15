@@ -3,8 +3,8 @@
   <div class="game-info">
     <span class="generation-info">Generation: {{ generation }}</span>
     <div class="game-controls">
-      <button (click)="onClickStopOrStart()" class="control-btn small-btn" [ngClass]="{'start': gameStatus === 1, 'pause': gameStatus === 0 }">
-        {{ gameStatus === 0 ? 'Pause' : 'Start' }}
+      <button (click)="onClickStopOrStart()" class="control-btn small-btn" [ngClass]="{'start': getGameStatus() === enumGameStatus.PAUSE, 'pause': getGameStatus() === enumGameStatus.ACTIVE }">
+        {{ getGameStatus() === enumGameStatus.ACTIVE ? 'Pause' : 'Start' }}
       </button>
       <button (click)="onReset()" class="control-btn small-btn reset">RESET</button>
     </div>
@@ -14,7 +14,7 @@
       <div class="cell" *ngFor="let col of numCols | numToArray">
         <button
           (click)="onClick(row, col)"
-          [ngClass]="{ 'alive': board.getCellStatus(row, col) === CellState.ALIVE, 'dead': board.getCellStatus(row, col) === CellState.DEAD }"
+          [ngClass]="{ 'alive': getCellState(row, col) === enumCellState.ALIVE, 'dead': getCellState(row, col) === enumCellState.DEAD }"
         ></button>
       </div>
     </div>

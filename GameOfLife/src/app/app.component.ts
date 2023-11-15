@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from './Models/board';
 import { CellState } from './Enums/CellState';
+import { GameStatus} from './Enums/GameStatus';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent implements OnInit {
   numCols = 30;
   numRows = 30;
   generation = 0;
-  gameStatus = 0; // -1 non actif | 0 actif | 1 pause 
+  gameStatus = GameStatus.ACTIVE;
   board: Board;
+  enumCellState = CellState;
+  enumGameStatus = GameStatus;
+  
 
   constructor() {
     this.board = new Board(this.numCols, this.numRows);
@@ -21,7 +25,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     setInterval(() => {
-      if (this.gameStatus === 0) {
+      if (this.gameStatus === GameStatus.ACTIVE) {
         this.board.checkBoard();
         this.generation++;
       }
@@ -33,7 +37,15 @@ export class AppComponent implements OnInit {
   }
 
   onClickStopOrStart(): void {
-    this.gameStatus = this.gameStatus === 0 ? 1 : 0;
+    this.gameStatus = this.gameStatus === GameStatus.ACTIVE ? GameStatus.PAUSE : GameStatus.ACTIVE;
+  }
+
+  getCellState(row: number, col: number): CellState {
+    return this.board.getCellStatus(row, col);
+  }
+
+  getGameStatus(): GameStatus {
+    return this.gameStatus;
   }
   
   onReset() {
