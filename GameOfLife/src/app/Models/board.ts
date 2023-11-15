@@ -1,4 +1,4 @@
-import { CellState } from "./CellState";
+import { CellState } from "../Enums/CellState";
 
 export class Board {
     board!: number[][];
@@ -30,15 +30,15 @@ export class Board {
         this.board = tmpBoard;
     }
 
+    resetBoard(): void {
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                this.board[i][j] = 0;
+            }
+        }
+    }
+
     checkRules(coordX: number, coordY: number): number {
-        const width = this.board.length;
-        const height = this.board[0].length;
-
-        const xMin = coordX - 1 < 0 ? width - 1 : coordX - 1;
-        const xMax = coordX + 1 >= width ? 0 : coordX + 1;
-        const yMin = coordY - 1 < 0 ? height - 1 : coordY - 1;
-        const yMax = coordY + 1 >= height ? 0 : coordY + 1;
-
         const currentStatus = this.board[coordX][coordY];
         const neighbours = this.countAliveNeighbors(coordX, coordY);
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from './Models/board';
-import { CellState } from './Models/CellState';
+import { CellState } from './Enums/CellState';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   board: Board;
 
   constructor() {
-   this.board = new Board(this.numCols, this.numRows);
+    this.board = new Board(this.numCols, this.numRows);
   }
 
   ngOnInit(): void {
@@ -36,4 +36,8 @@ export class AppComponent implements OnInit {
     this.gameStatus = this.gameStatus === 0 ? 1 : 0;
   }
   
+  onReset() {
+    this.board.resetBoard();
+    this.generation = 0;
+  }
 }

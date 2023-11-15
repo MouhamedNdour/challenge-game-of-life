@@ -2,16 +2,20 @@
   <h1>Welcome to the Game of Life</h1>
   <div class="game-info">
     <span class="generation-info">Generation: {{ generation }}</span>
-    <div class="controls">
-      <button (click)="onClickStopOrStart()" class="control-btn" [ngClass]="{'start': gameStatus === 1, 'pause': gameStatus === 0 }">
+    <div class="game-controls">
+      <button (click)="onClickStopOrStart()" class="control-btn small-btn" [ngClass]="{'start': gameStatus === 1, 'pause': gameStatus === 0 }">
         {{ gameStatus === 0 ? 'Pause' : 'Start' }}
       </button>
+      <button (click)="onReset()" class="control-btn small-btn reset">RESET</button>
     </div>
-    <div class="game">
-      <div class="board" *ngFor="let row of numRows | numToArray">
-        <div class="cell" *ngFor="let col of numCols | numToArray">
-          <button (click)="onClick(row, col)" [ngClass]="{ 'alive': board.getCellStatus(row, col) === 1 }"></button>
-        </div>
+  </div>
+  <div class="game">
+    <div class="board" *ngFor="let row of numRows | numToArray">
+      <div class="cell" *ngFor="let col of numCols | numToArray">
+        <button
+          (click)="onClick(row, col)"
+          [ngClass]="{ 'alive': board.getCellStatus(row, col) === CellState.ALIVE, 'dead': board.getCellStatus(row, col) === CellState.DEAD }"
+        ></button>
       </div>
     </div>
   </div>
