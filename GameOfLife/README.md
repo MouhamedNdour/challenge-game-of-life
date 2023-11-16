@@ -1,27 +1,56 @@
-# GameOfLife
+# Game of Life
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.4.
+Welcome to the Game of Life, a cellular automaton simulation implemented in Angular.
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The Game of Life is a classic cellular automaton devised by mathematician John Conway. It is a zero-player game, meaning its evolution is determined by its initial state, with no further input. The game consists of a grid of cells, each of which can be alive or dead. The state of each cell evolves based on simple rules, creating intricate patterns over time.
 
-## Code scaffolding
+### Rules of the Game
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+At each step in time (or generation), the following transitions occur:
 
-## Build
+1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+In this implementation, you can click on a cell to bring it to life. Initially, all cells are dead (generation 0), and it's up to the user to start the life by clicking on cells. Use the "PAUSE" button to stop the simulation, "START" to resume, and "RESET" to reset the grid.
 
-## Running unit tests
+## Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Follow these instructions to set up and run the project on your machine.
 
-## Running end-to-end tests
+### Prerequisites
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Make sure you have the following tools installed:
 
-## Further help
+- [Node.js](https://nodejs.org/)
+- [Angular CLI](https://angular.io/cli)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/MouhamedNdour/challenge-game-of-life.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd GameOfLife
+    ```
+
+3. Install the dependencies:
+
+    ```bash
+    npm install
+    ```
+
+### Development Server
+
+Run the following command to start a development server:
+
+```bash
+ng serve --open
