@@ -16,7 +16,7 @@ export class Board {
     }
 
     toggleCellStatus(coordX: number, coordY: number): void {
-        this.board[coordX][coordY] = this.board[coordX][coordY] === 0 ? 1 : 0;
+        this.board[coordX][coordY] = this.board[coordX][coordY] === CellState.DEAD ? CellState.ALIVE : CellState.DEAD;
     }
 
     checkBoard(): void {
@@ -31,11 +31,7 @@ export class Board {
     }
 
     resetBoard(): void {
-        for (let i = 0; i < this.board.length; i++) {
-            for (let j = 0; j < this.board[i].length; j++) {
-                this.board[i][j] = 0;
-            }
-        }
+        this.board.forEach(row => row.fill(CellState.DEAD));
     }
 
     checkRules(coordX: number, coordY: number): number {
@@ -51,23 +47,19 @@ export class Board {
     }
 
     private countAliveNeighbors(coordX: number, coordY: number): number {
-        const width = this.board.length;
-        const height = this.board[0].length;
-
-        const xMin = coordX - 1 < 0 ? width - 1 : coordX - 1;
-        const xMax = coordX + 1 >= width ? 0 : coordX + 1;
-        const yMin = coordY - 1 < 0 ? height - 1 : coordY - 1;
-        const yMax = coordY + 1 >= height ? 0 : coordY + 1;
-
-        return (
-            this.board[xMin][yMin] +
-            this.board[xMin][coordY] +
-            this.board[xMin][yMax] +
-            this.board[coordX][yMin] +
-            this.board[coordX][yMax] +
-            this.board[xMax][yMin] +
-            this.board[xMax][coordY] +
-            this.board[xMax][yMax]
-        );
+        let aliveNeighborCount = 0;
+    
+        for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+            for (let colOffset = -1; colOffset <= 1; colOffset++) {
+                if (!(rowOffset === 0 && colOffset === 0)) {
+                    const neighborX = (coordX + rowOffset + this.board.length) % this.board.length;
+                    const neighborY = (coordY + colOffset + this.board[0].length) % this.board[0].length;
+                    aliveNeighborCount += this.board[neighborX][neighborY];
+                }
+            }
+        }
+    
+        return aliveNeighborCount;
     }
+    
 }

@@ -32,8 +32,8 @@ export class AppComponent implements OnInit {
     }, 4000);
   }
 
-  onClick(pRow: number, pCol: number): void {
-    this.board.toggleCellStatus(pRow, pCol);
+  onClick(selectedRow: number, selectedCol: number): void {
+    this.board.toggleCellStatus(selectedRow, selectedCol);
   }
 
   onClickStopOrStart(): void {

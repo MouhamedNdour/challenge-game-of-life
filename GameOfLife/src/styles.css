@@ -78,12 +78,15 @@
     background-color: #ddd;
   }
   
-  .generation-info {
-    margin-top: 10px;
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-  }
+.generation-info {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #ddd;
+  padding: 8px;
+  display: inline-block;
+}
+
   
  
   body, html {
