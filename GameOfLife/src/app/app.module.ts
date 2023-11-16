@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { NumToArrayPipe } from './num-to-array.pipe';
@@ -10,7 +11,8 @@ import { NumToArrayPipe } from './num-to-array.pipe';
     NumToArrayPipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
