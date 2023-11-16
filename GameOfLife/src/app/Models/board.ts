@@ -8,7 +8,7 @@ export class Board {
     }
 
     initializeBoard(width: number, height: number): void {
-        this.board = Array.from({ length: width }, () => Array(height).fill(0));
+        this.board = Array.from({ length: width }, () => Array(height).fill(CellState.DEAD));
     }
 
     getCellStatus(coordX: number, coordY: number): number {
@@ -16,7 +16,7 @@ export class Board {
     }
 
     toggleCellStatus(coordX: number, coordY: number): void {
-        this.board[coordX][coordY] = this.board[coordX][coordY] === CellState.DEAD ? CellState.ALIVE : CellState.DEAD;
+        this.board[coordX][coordY] = 1 - this.getCellStatus(coordX, coordY);
     }
 
     checkBoard(): void {
@@ -31,35 +31,36 @@ export class Board {
     }
 
     resetBoard(): void {
-        this.board.forEach(row => row.fill(CellState.DEAD));
+        this.board = this.board.map(row => row.map(() => CellState.DEAD));
     }
 
     checkRules(coordX: number, coordY: number): number {
         const currentStatus = this.board[coordX][coordY];
         const neighbours = this.countAliveNeighbors(coordX, coordY);
 
-        if (currentStatus === CellState.ALIVE && (neighbours === 2 || neighbours === 3))
+        if (currentStatus === CellState.ALIVE && (neighbours === 2 || neighbours === 3)) {
             return CellState.ALIVE;
-        if (currentStatus === CellState.DEAD && neighbours === 3)
+        } else if (currentStatus === CellState.DEAD && neighbours === 3) {
             return CellState.ALIVE;
-
-        return CellState.DEAD;
+        } else {
+            return CellState.DEAD;
+        }
     }
 
     private countAliveNeighbors(coordX: number, coordY: number): number {
+        const { length } = this.board;
         let aliveNeighborCount = 0;
-    
+
         for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
             for (let colOffset = -1; colOffset <= 1; colOffset++) {
                 if (!(rowOffset === 0 && colOffset === 0)) {
-                    const neighborX = (coordX + rowOffset + this.board.length) % this.board.length;
+                    const neighborX = (coordX + rowOffset + length) % length;
                     const neighborY = (coordY + colOffset + this.board[0].length) % this.board[0].length;
-                    aliveNeighborCount += this.board[neighborX][neighborY];
+                    aliveNeighborCount += this.getCellStatus(neighborX, neighborY);
                 }
             }
         }
-    
+
         return aliveNeighborCount;
     }
-    
 }
